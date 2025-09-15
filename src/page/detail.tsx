@@ -1,12 +1,19 @@
 import PokeDetail from "@/components/poke-datail";
+import { DirectionContext } from "@/contexts/direction-context";
 import { usePokemonDetail } from "@/hooks/use-pokemon-datail";
-import { useParams } from "react-router-dom";
+import { useContext } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+
+const MAX_POKEMON_ID = 1025;
 
 const DetailPage = () => {
   const { id } = useParams<{ id: string }>();
+  const nav = useNavigate();
+  const { setDirection } = useContext(DirectionContext);
 
-  const pokemonUrl = `https://pokeapi.co/api/v2/pokemon/${id}`;
+  const currentId = parseInt(id ?? '1', 10);
 
+  const pokemonUrl = `https://pokeapi.co/api/v2/pokemon/${currentId}`;
   const { pokemon, loading } = usePokemonDetail(pokemonUrl);
 
   if (loading) return <div className="text-center p-10">로딩 중...</div>;
@@ -17,8 +24,22 @@ const DetailPage = () => {
     pokemon.sprites.front_default ||
     '/pokemon-detail-basic.png';
 
+  const goToPokemon = (newId: number, dir: 'next' | 'prev') => {
+    if (newId > 0 && newId <= MAX_POKEMON_ID) {
+      setDirection(dir === 'next' ? 1 : -1);
+      nav(`/pokemon/${newId}`);
+    }
+  };
+
   return (
-    <PokeDetail imgUrl={imgUrl} pokemon={pokemon}/>
+    <PokeDetail
+      imgUrl={imgUrl}
+      pokemon={pokemon}
+      onPrevClick={() => goToPokemon(currentId - 1, 'prev')}
+      onNextClick={() => goToPokemon(currentId + 1, 'next')}
+      hasPrev={currentId > 1}
+      hasNext={currentId < MAX_POKEMON_ID}
+    />
   );
 };
 
