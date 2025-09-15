@@ -3,7 +3,7 @@ interface SearchInputProps {
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-export const SearchInput = ({ value, onChange }: SearchInputProps) => {
+const SearchInput = ({ value, onChange }: SearchInputProps) => {
   return (
     <div className="mb-8">
       <input
@@ -16,3 +16,5 @@ export const SearchInput = ({ value, onChange }: SearchInputProps) => {
     </div>
   );
 }
+
+export default SearchInput;

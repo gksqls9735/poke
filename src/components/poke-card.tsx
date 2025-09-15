@@ -3,7 +3,7 @@ import { typeBadgeColorClasses, typeCardColorClasses } from "@/constants/color";
 import { capitalizeFirstLetter } from "@/utils/text";
 import { usePokemonDetail } from "@/hooks/use-pokemon-datail";
 
-export default function PokeCard({ name, url }: Pokemon) {
+const PokeCard = ({ name, url }: Pokemon) => {
   const { pokemon, loading } = usePokemonDetail(url);
 
   if (loading) {
@@ -19,7 +19,7 @@ export default function PokeCard({ name, url }: Pokemon) {
   if (!pokemon) {
     return null;
   }
-  
+
   const primaryType = pokemon.types[0].type.name;
   const cardColor = typeCardColorClasses[primaryType] || "bg-gray-100 border-gray-300";
 
@@ -51,4 +51,6 @@ export default function PokeCard({ name, url }: Pokemon) {
       </div>
     </div>
   );
-}
+};
+
+export default PokeCard;
