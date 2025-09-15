@@ -11,14 +11,32 @@ export interface PokemonData {
 }
 
 interface PokemonSprite {
-  front_default: string;
+  front_default: string | null;
+  other?: {
+    'official-artwork'?: {
+      front_default: string | null;
+    };
+  };
 }
+
 interface PokemonTypeInfo {
   name: string;
 }
+
 interface PokemonType {
   type: PokemonTypeInfo;
 }
+
+interface PokemonStatInfo {
+  name: string;
+  url: string;
+}
+
+interface PokemonStat {
+  base_stat: number;
+  stat: PokemonStatInfo;
+}
+
 export interface PokemonDetail {
   id: number;
   name: string;
@@ -26,4 +44,5 @@ export interface PokemonDetail {
   types: PokemonType[];
   height: number;
   weight: number;
+  stats: PokemonStat[];
 }
