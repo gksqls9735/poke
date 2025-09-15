@@ -1,6 +1,6 @@
 import PokeDetail from "@/components/poke-datail";
 import { usePokemonDetail } from "@/hooks/use-pokemon-datail";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 const DetailPage = () => {
   const { id } = useParams<{ id: string }>();

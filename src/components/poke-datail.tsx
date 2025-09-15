@@ -4,12 +4,12 @@ import { capitalizeFirstLetter } from "@/utils/text";
 import { useNavigate } from "react-router-dom";
 
 const PokeDetail = ({ imgUrl, pokemon }: { imgUrl: string, pokemon: PokemonDetail }) => {
-  const navigate = useNavigate();
+  const nav = useNavigate();
 
   return (
     <div className="min-h-screen bg-gray-100 p-4 sm:p-8">
       <button
-        onClick={() => navigate(-1)}
+        onClick={() => nav(-1)}
         className="mb-4 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition"
       >
         뒤로가기
