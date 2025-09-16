@@ -12,11 +12,6 @@ const MainPage = () => {
 
   return (
     <div className="bg-gray-100 min-h-screen p-4 sm:p-8">
-      <header className="text-center mb-10">
-        <h1 className="text-4xl sm:text-5xl font-bold text-blue-600">
-          포켓몬 도감
-        </h1>
-      </header>
 
       <SearchInput value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
 
