@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { typeBadgeColorClasses } from "@/constants/color";
-import type { PokemonDetail } from "@/type/poke";
+import type { PokemonDetail, PokemonTypeInfo } from "@/type/poke";
 import { capitalizeFirstLetter } from "@/utils/text";
 import { useContext } from 'react';
 import { DirectionContext } from '@/contexts/direction-context';
@@ -34,10 +34,31 @@ const ArrowIcon = ({ direction = 'left' }: { direction?: 'left' | 'right' }) => 
   </svg>
 );
 
+const RelationsSection = ({ title, types }: { title: string, types: PokemonTypeInfo[] }) => {
+  if (types.length === 0) return null;
 
-const PokeDetail = ({ imgUrl, pokemon, onPrevClick, onNextClick, hasPrev, hasNext }: {
+  return (
+    <div className="flex items-start my-1">
+      <h3 className="w-1/3 text-sm font-bold text-gray-600 pt-0.5">{title}</h3>
+      <div className="w-2/3 flex flex-wrap gap-1">
+        {types.map(({ name }) => (
+          <span key={name} className={`px-2 py-0.5 text-white text-xs font-semibold rounded-md ${typeBadgeColorClasses[name]}`}>
+            {capitalizeFirstLetter(name)}
+          </span>
+        ))}
+      </div>
+    </div>
+  )
+};
+
+
+
+const PokeDetail = ({ imgUrl, pokemon, weaknesses, resistances, immunities, onPrevClick, onNextClick, hasPrev, hasNext }: {
   imgUrl: string,
   pokemon: PokemonDetail,
+  weaknesses: PokemonTypeInfo[],
+  resistances: PokemonTypeInfo[],
+  immunities: PokemonTypeInfo[],
   onPrevClick: () => void,
   onNextClick: () => void,
   hasPrev: boolean,
@@ -125,6 +146,16 @@ const PokeDetail = ({ imgUrl, pokemon, onPrevClick, onNextClick, hasPrev, hasNex
                   </div>
                 ))}
               </div>
+
+              <div className="mt-6">
+                <h2 className="text-2xl font-bold mb-3">Damage Relations</h2>
+                <div className="flex flex-col gap-y-2">
+                  <RelationsSection title="Weaknesses" types={weaknesses} />
+                  <RelationsSection title="Resistances" types={resistances} />
+                  <RelationsSection title="Immunities" types={immunities} />
+                </div>
+              </div>
+
             </div>
           </div>
         </motion.div>

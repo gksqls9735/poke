@@ -19,11 +19,12 @@ interface PokemonSprite {
   };
 }
 
-interface PokemonTypeInfo {
+export interface PokemonTypeInfo {
   name: string;
+  url: string;
 }
 
-interface PokemonType {
+export interface PokemonType {
   type: PokemonTypeInfo;
 }
 
@@ -45,4 +46,15 @@ export interface PokemonDetail {
   height: number;
   weight: number;
   stats: PokemonStat[];
+}
+
+export interface DmgDetail {
+  damage_relations: {
+    double_damage_from: PokemonTypeInfo[],
+    double_damage_to: PokemonTypeInfo[],
+    half_damage_from: PokemonTypeInfo[],
+    half_damage_to: PokemonTypeInfo[],
+    no_damage_from: PokemonTypeInfo[],
+    no_damage_to: PokemonTypeInfo[],
+  }
 }

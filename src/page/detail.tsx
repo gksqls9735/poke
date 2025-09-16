@@ -1,5 +1,6 @@
 import PokeDetail from "@/components/poke-datail";
 import { DirectionContext } from "@/contexts/direction-context";
+import { useDmgRelations } from "@/hooks/use-dmg-relations";
 import { usePokemonDetail } from "@/hooks/use-pokemon-datail";
 import { useContext } from "react";
 import { useNavigate, useParams } from "react-router-dom";
@@ -15,6 +16,7 @@ const DetailPage = () => {
 
   const pokemonUrl = `https://pokeapi.co/api/v2/pokemon/${currentId}`;
   const { pokemon, loading } = usePokemonDetail(pokemonUrl);
+  const { weaknesses, resistances, immunities } = useDmgRelations(pokemon?.types);
 
   if (loading) return <div className="text-center p-10">로딩 중...</div>;
   if (!pokemon) return <div className="text-center p-10">해당 포켓몬을 찾을 수 없습니다.</div>;
@@ -35,6 +37,9 @@ const DetailPage = () => {
     <PokeDetail
       imgUrl={imgUrl}
       pokemon={pokemon}
+      weaknesses={weaknesses}
+      resistances={resistances}
+      immunities={immunities}
       onPrevClick={() => goToPokemon(currentId - 1, 'prev')}
       onNextClick={() => goToPokemon(currentId + 1, 'next')}
       hasPrev={currentId > 1}
