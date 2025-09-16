@@ -29,15 +29,18 @@ const PokeCard = ({ name, url }: Pokemon) => {
   return (
     <Link to={`/pokemon/${pokemonId}`}>
       <div
-        className={`rounded-lg shadow-md p-4 flex flex-col items-center justify-between transition-transform transform hover:-translate-y-1 hover:shadow-xl border-4 ${cardColor}`}
+        className={`relative rounded-lg shadow-md p-4 flex flex-col items-center justify-between transition-transform transform hover:-translate-y-1 hover:shadow-xl border-4 ${cardColor}`}
       >
-        <div>
+        <span className="absolute top-2 right-4 text-sm font-bold text-gray-500/80">
+          #{pokemon.id.toString().padStart(3, '0')}
+        </span>
+
+        <div className="flex flex-col items-center">
           <img
             src={pokemon.sprites.front_default || '/pokemon-main-basic.png'}
             alt={pokemon.name}
             className="w-24 h-24"
           />
-          <span className="text-sm font-bold text-gray-500">#{pokemon.id}</span>
           <h2 className="text-lg font-semibold mt-1 text-gray-800">
             {capitalizeFirstLetter(pokemon.name)}
           </h2>
