@@ -1,4 +1,4 @@
-import PokeDetail from "@/components/poke-datail";
+import PokeDetail from "@/components/poke-detail";
 import { DirectionContext } from "@/contexts/direction-context";
 import { useDmgRelations } from "@/hooks/use-dmg-relations";
 import { usePokemonDetail } from "@/hooks/use-pokemon-datail";
