@@ -23,9 +23,9 @@ const AnimatedRoutes = () => {
 const App = () => {
   return (
     <BrowserRouter>
-    <DirectionProvider>
-      <AnimatedRoutes />
-    </DirectionProvider>
+      <DirectionProvider>
+        <AnimatedRoutes />
+      </DirectionProvider>
     </BrowserRouter>
   );
 };

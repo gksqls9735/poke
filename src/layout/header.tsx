@@ -1,17 +1,20 @@
 import { useNavigate } from "react-router-dom";
 import pokeLogo from '/poke.png';
 import { useDropDown } from "@/hooks/use-dropdown";
-import { useState } from "react";
 import { languages } from "@/constants/languages";
 import type { Language } from "@/type/common";
+import { useTranslation } from "react-i18next";
 
 const Header = () => {
   const nav = useNavigate();
   const { isDropdownOpen, dropdownRef, handleDropDown } = useDropDown();
-  const [currentLang, setCurrentLang] = useState<Language>(languages[0]);
+
+  const { i18n } = useTranslation();
+
+  const currentLang = languages.find(lang => lang.code === i18n.language) || languages[0];
 
   const selectLanguage = (lang: Language) => {
-    setCurrentLang(lang);
+    i18n.changeLanguage(lang.code);
     handleDropDown();
   };
 

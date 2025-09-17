@@ -1,0 +1,15 @@
+{
+  "common": {
+    "loading": "載入中...",
+    "searching": "搜尋中...",
+    "notFound": "找不到。"
+  },
+  "list": {
+    "initialLoading": "正在載入資料...",
+    "loadingMore": "正在載入更多寶可夢..."
+  },
+  "search": {
+    "placeholder": "依寶可夢名稱搜尋...",
+    "noResultsFound": "找不到 \"{{term}}\" 的搜尋結果。"
+  }
+}

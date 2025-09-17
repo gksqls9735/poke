@@ -1,0 +1,15 @@
+{
+  "common": {
+    "loading": "加载中...",
+    "searching": "搜索中...",
+    "notFound": "找不到。"
+  },
+  "list": {
+    "initialLoading": "正在加载数据...",
+    "loadingMore": "正在加载更多宝可梦..."
+  },
+  "search": {
+    "placeholder": "按宝可梦名称搜索...",
+    "noResultsFound": "没有找到 \"{{term}}\" 的搜索结果。"
+  }
+}

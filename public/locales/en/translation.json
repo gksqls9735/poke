@@ -1,0 +1,15 @@
+{
+  "common": {
+    "loading": "Loading...",
+    "searching": "Searching...",
+    "notFound": "Not found."
+  },
+  "list": {
+    "initialLoading": "Loading data...",
+    "loadingMore": "Loading more Pokémon..."
+  },
+  "search": {
+    "placeholder": "Search by Pokémon name...",
+    "noResultsFound": "No search results for \"{{term}}\"."
+  }
+}

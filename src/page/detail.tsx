@@ -3,6 +3,7 @@ import { DirectionContext } from "@/contexts/direction-context";
 import { useDmgRelations } from "@/hooks/use-dmg-relations";
 import { usePokemonDetail } from "@/hooks/use-pokemon-datail";
 import { useContext } from "react";
+import { useTranslation } from "react-i18next";
 import { useNavigate, useParams } from "react-router-dom";
 
 const MAX_POKEMON_ID = 1025;
@@ -11,6 +12,7 @@ const DetailPage = () => {
   const { id } = useParams<{ id: string }>();
   const nav = useNavigate();
   const { setDirection } = useContext(DirectionContext);
+  const { t } = useTranslation();
 
   const currentId = parseInt(id ?? '1', 10);
 
@@ -18,8 +20,8 @@ const DetailPage = () => {
   const { pokemon, loading } = usePokemonDetail(pokemonUrl);
   const { weaknesses, resistances, immunities } = useDmgRelations(pokemon?.types);
 
-  if (loading) return <div className="text-center p-10">로딩 중...</div>;
-  if (!pokemon) return <div className="text-center p-10">해당 포켓몬을 찾을 수 없습니다.</div>;
+  if (loading) return <div className="text-center p-10">{t('common.loading')}</div>;
+  if (!pokemon) return <div className="text-center p-10">{t('common.notFound')}</div>;
 
   const imgUrl =
     pokemon.sprites.other?.['official-artwork']?.front_default ||
