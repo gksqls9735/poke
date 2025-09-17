@@ -1,7 +1,7 @@
 import type { Pokemon } from "@/type/poke";
 import { typeBadgeColorClasses, typeCardColorClasses } from "@/constants/color";
 import { capitalizeFirstLetter } from "@/utils/text";
-import { usePokemonDetail } from "@/hooks/use-pokemon-datail";
+import { usePokemonDetail } from "@/hooks/use-pokemon-detail";
 import { Link } from "react-router-dom";
 
 const PokeCard = ({ name, url }: Pokemon) => {

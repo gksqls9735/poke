@@ -1,7 +1,7 @@
 import PokeDetail from "@/components/poke-detail";
 import { DirectionContext } from "@/contexts/direction-context";
 import { useDmgRelations } from "@/hooks/use-dmg-relations";
-import { usePokemonDetail } from "@/hooks/use-pokemon-datail";
+import { usePokemonDetail } from "@/hooks/use-pokemon-detail";
 import { useContext } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate, useParams } from "react-router-dom";
