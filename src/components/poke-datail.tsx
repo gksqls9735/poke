@@ -4,6 +4,7 @@ import type { PokemonDetail, PokemonTypeInfo } from "@/type/poke";
 import { capitalizeFirstLetter } from "@/utils/text";
 import { useContext } from 'react';
 import { DirectionContext } from '@/contexts/direction-context';
+import { useTranslation } from 'react-i18next';
 
 const slideVariants = {
   enter: (direction: number) => ({
@@ -65,6 +66,7 @@ const PokeDetail = ({ imgUrl, pokemon, weaknesses, resistances, immunities, onPr
   hasNext: boolean,
 }) => {
   const { direction } = useContext(DirectionContext);
+   const { t } = useTranslation();
 
   return (
     <div className="min-h-[calc(100vh-68px)] bg-gray-100 p-4 sm:p-8 flex items-center justify-center">
@@ -122,17 +124,17 @@ const PokeDetail = ({ imgUrl, pokemon, weaknesses, resistances, immunities, onPr
 
               <div className="grid grid-cols-2 gap-4 my-6 text-center">
                 <div>
-                  <h3 className="font-bold text-lg">Height</h3>
+                  <h3 className="font-bold text-lg">{t('common.height')}</h3>
                   <p>{pokemon.height / 10} m</p>
                 </div>
                 <div>
-                  <h3 className="font-bold text-lg">Weight</h3>
+                  <h3 className="font-bold text-lg">{t('common.weight')}</h3>
                   <p>{pokemon.weight / 10} kg</p>
                 </div>
               </div>
 
               <div>
-                <h2 className="text-2xl font-bold mb-2">Base Stats</h2>
+                <h2 className="text-2xl font-bold mb-2">{t('common.baseStats')}</h2>
                 {pokemon.stats.map((stat) => (
                   <div key={stat.stat.name} className="flex items-center my-2">
                     <span className="w-1/3 text-gray-600 font-medium">{capitalizeFirstLetter(stat.stat.name.replace('-', ' '))}</span>
@@ -148,11 +150,11 @@ const PokeDetail = ({ imgUrl, pokemon, weaknesses, resistances, immunities, onPr
               </div>
 
               <div className="mt-6">
-                <h2 className="text-2xl font-bold mb-3">Damage Relations</h2>
+                <h2 className="text-2xl font-bold mb-3">{t('common.damageRelations')}</h2>
                 <div className="flex flex-col gap-y-2">
-                  <RelationsSection title="Weaknesses" types={weaknesses} />
-                  <RelationsSection title="Resistances" types={resistances} />
-                  <RelationsSection title="Immunities" types={immunities} />
+                  <RelationsSection title={t('common.weaknesses')} types={weaknesses} />
+                  <RelationsSection title={t('common.resistances')} types={resistances} />
+                  <RelationsSection title={t('common.immunities')} types={immunities} />
                 </div>
               </div>
 

@@ -2,7 +2,14 @@
   "common": {
     "loading": "Wird geladen...",
     "searching": "Suche läuft...",
-    "notFound": "Nicht gefunden."
+    "notFound": "Nicht gefunden.",
+    "height": "Größe",
+    "weight": "Gewicht",
+    "baseStats": "Basiswerte",
+    "damageRelations": "Schadensbeziehungen",
+    "weaknesses": "Schwächen",
+    "resistances": "Resistenzen",
+    "immunities": "Immunitäten"
   },
   "list": {
     "initialLoading": "Daten werden geladen...",

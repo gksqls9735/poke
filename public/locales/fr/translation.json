@@ -2,7 +2,14 @@
   "common": {
     "loading": "Chargement...",
     "searching": "Recherche...",
-    "notFound": "Introuvable."
+    "notFound": "Introuvable.",
+    "height": "Taille",
+    "weight": "Poids",
+    "baseStats": "Statistiques de base",
+    "damageRelations": "Relations de dégâts",
+    "weaknesses": "Faiblesses",
+    "resistances": "Résistances",
+    "immunities": "Immunité"
   },
   "list": {
     "initialLoading": "Chargement des données...",

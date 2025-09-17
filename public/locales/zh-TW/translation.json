@@ -2,7 +2,14 @@
   "common": {
     "loading": "載入中...",
     "searching": "搜尋中...",
-    "notFound": "找不到。"
+    "notFound": "找不到。",
+    "height": "身高",
+    "weight": "體重",
+    "baseStats": "種族值",
+    "damageRelations": "傷害關係",
+    "weaknesses": "弱點",
+    "resistances": "抵抗",
+    "immunities": "無效"
   },
   "list": {
     "initialLoading": "正在載入資料...",

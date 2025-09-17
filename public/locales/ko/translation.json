@@ -2,7 +2,14 @@
   "common": {
     "loading": "로딩 중...",
     "searching": "검색 중...",
-    "notFound": "찾을 수 없습니다."
+    "notFound": "찾을 수 없습니다.",
+    "height": "키",
+    "weight": "몸무게",
+    "baseStats": "종족값",
+    "damageRelations": "데미지 관계",
+    "weaknesses": "약점",
+    "resistances": "저항",
+    "immunities": "무효"
   },
   "list": {
     "initialLoading": "데이터를 불러오는 중...",
