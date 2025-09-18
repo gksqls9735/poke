@@ -10,3 +10,5 @@ export interface CommonTranslations {
     [langCode: string]: string;
   }
 }
+
+export type ViewMode = 'grid' | 'list';

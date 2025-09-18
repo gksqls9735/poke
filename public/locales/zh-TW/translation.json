@@ -13,7 +13,8 @@
   },
   "list": {
     "initialLoading": "正在載入資料...",
-    "loadingMore": "正在載入更多寶可夢..."
+    "loadingMore": "正在載入更多寶可夢...",
+    "subtitle": "發現並了解你最喜歡的寶可夢。"
   },
   "search": {
     "placeholder": "依寶可夢名稱搜尋...",

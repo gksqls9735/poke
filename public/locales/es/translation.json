@@ -13,7 +13,8 @@
   },
   "list": {
     "initialLoading": "Cargando datos...",
-    "loadingMore": "Cargando más Pokémon..."
+    "loadingMore": "Cargando más Pokémon...",
+    "subtitle": "Descubre y aprende sobre tus Pokémon favoritos."
   },
   "search": {
     "placeholder": "Buscar por nombre de Pokémon...",

@@ -13,7 +13,8 @@
   },
   "list": {
     "initialLoading": "데이터를 불러오는 중...",
-    "loadingMore": "더 많은 포켓몬을 불러오는 중..."
+    "loadingMore": "더 많은 포켓몬을 불러오는 중...",
+    "subtitle": "좋아하는 포켓몬을 발견하고 배워보세요."
   },
   "search": {
     "placeholder": "포켓몬 이름으로 검색...",
