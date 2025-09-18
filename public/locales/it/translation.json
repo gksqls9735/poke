@@ -1,0 +1,27 @@
+{
+  "common": {
+    "loading": "Caricamento...",
+    "searching": "Ricerca...",
+    "notFound": "Non trovato",
+    "height": "Altezza",
+    "weight": "Peso",
+    "baseStats": "Statistiche di base",
+    "damageRelations": "Efficacia dei tipi",
+    "weaknesses": "Debolezze",
+    "resistances": "Resistenze",
+    "immunities": "Immunità"
+  },
+  "list": {
+    "initialLoading": "Caricamento dati in corso...",
+    "loadingMore": "Caricamento di altri Pokémon..."
+  },
+  "search": {
+    "placeholder": "Cerca per nome Pokémon...",
+    "noResultsFound": "Nessun risultato trovato per \"{{term}}\"."
+  },
+  "tabs": {
+    "about": "Informazioni",
+    "baseStats": "Statistiche",
+    "damageRelations": "Efficacia Tipi"
+  }
+}

@@ -9,4 +9,5 @@ export const languages: Language[] = [
   { code: 'es', name: 'Español', flag: '/flags/es.png' }, // 스페인어
   { code: 'fr', name: 'Français', flag: '/flags/fr.png' }, // 프랑스어
   { code: 'de', name: 'Deutsch', flag: '/flags/de.png' }, // 독일어
+  { code: 'it', name: 'Italiano', flag: '/flags/it.png' }, // 이탈리아어
 ];
