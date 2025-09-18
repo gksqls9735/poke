@@ -1,21 +1,11 @@
+import { langCodeApiMap } from "@/constants/languages";
+import type { CommonTranslations } from "@/type/common";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
-// 타입 번역 데이터를 저장할 구조 (grass: { ko: '풀', en: 'Grass' })
-interface TypeTranslations {
-  [engName: string]: {
-    [langCode: string]: string;
-  }
-}
-
-const langCodeApiMap: { [key: string]: string } = {
-  'zh-CN': 'zh-Hans', // 간체자
-  'zh-TW': 'zh-Hant', // 번체자
-};
-
 // 한 번만 실행되도록 상태 관리
-let translations: TypeTranslations | null = null;
+let translations: CommonTranslations | null = null;
 let isFetching = false;
 let subscribers: React.Dispatch<React.SetStateAction<boolean>>[] = [];
 
@@ -39,7 +29,7 @@ export const useTypeTranslations = () => {
           const typeUrls = listResponse.data.results.map((type: { url: string }) => type.url);
           const detailResponses = await Promise.all(typeUrls.map((url: any) => axios.get(url)));
 
-          const newTranslations: TypeTranslations = {};
+          const newTranslations: CommonTranslations = {};
           detailResponses.forEach(res => {
             const names = res.data.names;
             const engName = names.find((n: any) => n.language.name === 'en')?.name;

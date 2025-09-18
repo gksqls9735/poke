@@ -48,6 +48,10 @@ export interface PokemonDetail {
   stats: PokemonStat[];
   localizedName?: string;
   flavorText?: string;
+  species: {
+    name: string;
+    url: string;
+  };
 }
 
 export interface DmgDetail {

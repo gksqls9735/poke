@@ -15,14 +15,10 @@ export const usePokemonDetail = (url: string | undefined) => {
     const fetchData = async () => {
       setLoading(true);
       try {
-        const id = url.split('/').filter(Boolean).pop();
-        const speciesUrl = `https://pokeapi.co/api/v2/pokemon-species/${id}`;
-
-        const [pokemonResponse, speciesResponse] = await Promise.all([
-          axios.get<PokemonDetail>(url), axios.get<PokemonSpecies>(speciesUrl),
-        ]);
-
+        const pokemonResponse = await axios.get<PokemonDetail>(url);
         const pokemonData = pokemonResponse.data;
+
+        const speciesResponse = await axios.get<PokemonSpecies>(pokemonData.species.url);
         const speciesData = speciesResponse.data;
 
         const localizedName = speciesData.names.find(
@@ -38,6 +34,7 @@ export const usePokemonDetail = (url: string | undefined) => {
           localizedName: localizedName || pokemonData.name,
           flavorText: flavorText,
         });
+
       } catch (e) {
         console.error("Failed to fetch pokemon detail:", e);
         setPokemon(null);

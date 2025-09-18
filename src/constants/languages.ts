@@ -12,3 +12,8 @@ export const languages: Language[] = [
   { code: 'de', name: 'Deutsch', flag: '/flags/de.png' }, // 독일어
   { code: 'it', name: 'Italiano', flag: '/flags/it.png' }, // 이탈리아어
 ];
+
+export const langCodeApiMap: { [key: string]: string } = {
+  'zh-CN': 'zh-Hans', // 간체자
+  'zh-TW': 'zh-Hant', // 번체자
+};

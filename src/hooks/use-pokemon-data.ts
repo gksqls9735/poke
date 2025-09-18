@@ -1,6 +1,8 @@
 import { useEffect, useState, useRef, useCallback } from "react";
 import axios from "axios";
 import type { Pokemon, PokemonData } from "@/type/poke";
+import { useTranslation } from "react-i18next";
+import { usePokemonNames } from "./use-pokemon-names";
 
 const INITIAL_URL = 'https://pokeapi.co/api/v2/pokemon/?limit=20&offset=0';
 const ALL_POKEMONS_URL = 'https://pokeapi.co/api/v2/pokemon?limit=1302';
@@ -14,6 +16,11 @@ export const usePokemonData = (debouncedSearchTerm: string) => {
   const allPokemonsCache = useRef<Pokemon[]>([]);
   const observerRef = useRef<IntersectionObserver | null>(null);
   const loadingAbortController = useRef<AbortController | null>(null);  // 중복 요청 방지
+
+  const { i18n } = useTranslation();
+  const { getLocalizedName, isLoading: areNamesLoading } = usePokemonNames();
+
+  areNamesLoading
 
   const fetchAllPokemons = useCallback(async () => {
     if (allPokemonsCache.current.length > 0) return;
@@ -64,6 +71,13 @@ export const usePokemonData = (debouncedSearchTerm: string) => {
     // 이전 포켓몬 데이터를 미리 캐시
     fetchAllPokemons();
 
+    // 이름 데이터 로딩 중이면 잠시 대기
+    if (areNamesLoading) {
+      console.log("Waiting for names to load...");
+      setLoading(true);
+      return;
+    }
+
     // 이전 로딩 요청있을 시 취소
     if (loadingAbortController.current) {
       loadingAbortController.current.abort();
@@ -75,6 +89,7 @@ export const usePokemonData = (debouncedSearchTerm: string) => {
       setPokemons([]);
 
       if (debouncedSearchTerm) {
+
         // 검색어가 있는 경우: 캐시된 데이터 필터링
         setIsSearching(true);
         setNextUrl(null); // 검색 중에는 무한 스크롤 비활성화
@@ -82,9 +97,13 @@ export const usePokemonData = (debouncedSearchTerm: string) => {
         // allPokemonsCache가 비어있다면 한 번 더 시도 (초기 로드 실패 시)
         if (allPokemonsCache.current.length === 0) await fetchAllPokemons();
 
-        const filtered = allPokemonsCache.current.filter(
-          p => p.name.toLowerCase().includes(debouncedSearchTerm.toLowerCase())
-        );
+        const filtered = allPokemonsCache.current.filter(p => {
+          const engName = p.name.toLowerCase();
+          const localized = getLocalizedName(p.name, i18n.language).toLowerCase();
+          const searchTerm = debouncedSearchTerm.toLowerCase();
+
+          return engName.includes(searchTerm) || localized.includes(searchTerm);
+        });
         setPokemons(filtered);
       } else {
         // 검색어가 없는 경우: 무한 스크롤 초기화 및 첫 페이지 로드
@@ -99,7 +118,7 @@ export const usePokemonData = (debouncedSearchTerm: string) => {
     return () => {
       if (loadingAbortController.current) loadingAbortController.current.abort();
     }
-  }, [debouncedSearchTerm, fetchAllPokemons]);
+  }, [debouncedSearchTerm, fetchAllPokemons, getLocalizedName, i18n.language, areNamesLoading]);
 
   // nextUrl이 변경되거나 컴포넌트 초기 로드 시 첫 페이지 데이터를 로드하기 위한 useEffect
   useEffect(() => {
