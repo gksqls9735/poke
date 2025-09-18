@@ -1,0 +1,27 @@
+{
+  "common": {
+    "loading": "よみこみちゅう...",
+    "searching": "けんさくちゅう...",
+    "notFound": "みつかりません。",
+    "height": "たかさ",
+    "weight": "おもさ",
+    "baseStats": "しゅぞくち",
+    "damageRelations": "ダメージあいしょう",
+    "weaknesses": "じゃくてん",
+    "resistances": "ていこう",
+    "immunities": "むこう"
+  },
+  "list": {
+    "initialLoading": "データをよみこみちゅう...",
+    "loadingMore": "さらにポケモンをよみこみちゅう..."
+  },
+  "search": {
+    "placeholder": "ポケモンめいでけんさく...",
+    "noResultsFound": "\"{{term}}\" のけんさくけっかはみつかりませんでした。"
+  },
+  "tabs": {
+    "about": "じょうほう",
+    "baseStats": "しゅぞくち",
+    "damageRelations": "あいしょう"
+  }
+}
