@@ -3,13 +3,16 @@ import { typeBadgeColorClasses, typeCardColorClasses } from "@/constants/color";
 import { capitalizeFirstLetter } from "@/utils/text";
 import { usePokemonDetail } from "@/hooks/use-pokemon-detail";
 import { Link } from "react-router-dom";
+import { useTypeTranslations } from "@/hooks/use-type-translations";
 
 const PokeCard = ({ name, url }: Pokemon) => {
-  const { pokemon, loading } = usePokemonDetail(url);
-
+  const { pokemon, loading: isDetailLoading } = usePokemonDetail(url);
+  const { getTranslatedTypeName, isLoading: areTypesLoading  } = useTypeTranslations();
   const pokemonId = url.split('/').filter(Boolean).pop();
 
-  if (loading) {
+  const isCardLoading = isDetailLoading || areTypesLoading;
+
+  if (isCardLoading) {
     return (
       <div className="bg-white rounded-lg shadow-md p-4 animate-pulse">
         <div className="h-24 bg-gray-300 rounded w-full"></div>
@@ -52,7 +55,7 @@ const PokeCard = ({ name, url }: Pokemon) => {
               key={type.name}
               className={`px-3 py-1 text-xs text-white font-bold rounded-full ${typeBadgeColorClasses[type.name]}`}
             >
-              {capitalizeFirstLetter(type.name)}
+              {capitalizeFirstLetter(getTranslatedTypeName(type.name))}
             </span>
           ))}
         </div>
