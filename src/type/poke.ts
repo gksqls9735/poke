@@ -46,6 +46,8 @@ export interface PokemonDetail {
   height: number;
   weight: number;
   stats: PokemonStat[];
+  localizedName?: string;
+  flavorText?: string;
 }
 
 export interface DmgDetail {
@@ -57,4 +59,28 @@ export interface DmgDetail {
     no_damage_from: PokemonTypeInfo[],
     no_damage_to: PokemonTypeInfo[],
   }
+}
+
+// 도감 설명 타입
+interface FlavorTextEntry {
+  flavor_text: string;
+  language: {
+    name: string;
+    url: string;
+  };
+}
+
+// 언어별 이름 타입
+interface NameEntry {
+  name: string;
+  language: {
+    name: string;
+    url: string;
+  };
+}
+
+// pokemon-species API의 응답 타입
+export interface PokemonSpecies {
+  names: NameEntry[];
+  flavor_text_entries: FlavorTextEntry[];
 }

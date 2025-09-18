@@ -38,11 +38,11 @@ const PokeCard = ({ name, url }: Pokemon) => {
         <div className="flex flex-col items-center">
           <img
             src={pokemon.sprites.front_default || '/pokemon-main-basic.png'}
-            alt={pokemon.name}
+            alt={pokemon.localizedName || pokemon.name}
             className="w-24 h-24"
           />
           <h2 className="text-lg font-semibold mt-1 text-gray-800">
-            {capitalizeFirstLetter(pokemon.name)}
+            {capitalizeFirstLetter(pokemon.localizedName || pokemon.name)}
           </h2>
         </div>
 
