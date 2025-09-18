@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import pokeLogo from '/poke.png';
+import earthIcon from '/earth.png';
 import { useDropDown } from "@/hooks/use-dropdown";
 import { languages } from "@/constants/languages";
 import type { Language } from "@/type/common";
@@ -38,7 +39,7 @@ const Header = () => {
               <img src={currentLang.flag} alt={`${currentLang.name} Flag`} className="w-5 h-5 rounded-full object-cover" />
             )}
             <span className="hidden sm:inline-block px-1">{currentLang.name}</span>
-            <img src="earth.png" alt="Language Icon" className="w-6 h-6" />
+            <img src={earthIcon} alt="Language Icon" className="w-6 h-6" />
           </button>
 
           {isDropdownOpen && (
