@@ -18,5 +18,10 @@
   "search": {
     "placeholder": "Rechercher par nom de Pokémon...",
     "noResultsFound": "Aucun résultat trouvé pour \"{{term}}\"."
+  },
+  "tabs": {
+    "about": "À propos",
+    "baseStats": "Statistiques de base",
+    "damageRelations": "Faiblesses et Résistances"
   }
 }

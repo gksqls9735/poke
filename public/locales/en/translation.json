@@ -18,5 +18,10 @@
   "search": {
     "placeholder": "Search by Pokémon name...",
     "noResultsFound": "No search results for \"{{term}}\"."
+  },
+  "tabs": {
+    "about": "About",
+    "baseStats": "Base Stats",
+    "damageRelations": "Damage Relations"
   }
 }

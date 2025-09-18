@@ -18,5 +18,10 @@
   "search": {
     "placeholder": "ポケモン名で検索...",
     "noResultsFound": "\"{{term}}\" の検索結果は見つかりませんでした。"
+  },
+  "tabs": {
+    "about": "情報",
+    "baseStats": "種族値",
+    "damageRelations": "相性"
   }
 }

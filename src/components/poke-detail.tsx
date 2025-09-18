@@ -1,8 +1,8 @@
 import { motion } from 'framer-motion';
-import { typeBadgeColorClasses } from "@/constants/color";
+import { typeBadgeColorClasses, typeCardColorClasses } from "@/constants/color";
 import type { PokemonDetail, PokemonTypeInfo } from "@/type/poke";
 import { capitalizeFirstLetter } from "@/utils/text";
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { DirectionContext } from '@/contexts/direction-context';
 import { useTranslation } from 'react-i18next';
 
@@ -52,7 +52,14 @@ const RelationsSection = ({ title, types }: { title: string, types: PokemonTypeI
   )
 };
 
-
+const TabButton = ({ title, isActive, onClick }: { title: string, isActive: boolean, onClick: () => void }) => (
+  <button
+    onClick={onClick}
+    className={`px-4 py-2 font-semibold text-sm transition-colors duration-200 ${isActive ? `border-b-2 border-blue-500 text-blue-600` : `text-gray-500 hover:text-blue-600`}`}
+  >
+    {title}
+  </button>
+);
 
 const PokeDetail = ({ imgUrl, pokemon, weaknesses, resistances, immunities, onPrevClick, onNextClick, hasPrev, hasNext }: {
   imgUrl: string,
@@ -66,102 +73,99 @@ const PokeDetail = ({ imgUrl, pokemon, weaknesses, resistances, immunities, onPr
   hasNext: boolean,
 }) => {
   const { direction } = useContext(DirectionContext);
-   const { t } = useTranslation();
+  const { t } = useTranslation();
+  const [activeTab, setActiveTab] = useState<'about' | 'stats' | 'relations'>('about');
+
+  const primaryType = pokemon.types[0].type.name;
+  const cardColor = typeCardColorClasses[primaryType] || "bg-gray-200";
 
   return (
     <div className="min-h-[calc(100vh-68px)] bg-gray-100 p-4 sm:p-8 flex items-center justify-center">
+      <div className="relative max-w-2xl mx-auto w-full">
+        {hasPrev && <button onClick={onPrevClick} className="absolute top-1/2 -translate-y-1/2 -left-4 sm:-left-16 z-10"><ArrowIcon direction="left" /></button>}
+        {hasNext && <button onClick={onNextClick} className="absolute top-1/2 -translate-y-1/2 -right-4 sm:-right-16 z-10"><ArrowIcon direction="right" /></button>}
 
-      <div className="relative max-w-4xl mx-auto w-full">
-
-        {hasPrev && (
-          <button
-            onClick={onPrevClick}
-            className="absolute top-1/2 -translate-y-1/2 -left-4 sm:-left-12 p-2 rounded-full bg-white shadow-lg hover:bg-gray-200 transition text-gray-700 z-10"
-            aria-label="Previous Pokémon"
-          >
-            <ArrowIcon direction="left" />
-          </button>
-        )}
-
-        {hasNext && (
-          <button
-            onClick={onNextClick}
-            className="absolute top-1/2 -translate-y-1/2 -right-4 sm:-right-12 p-2 rounded-full bg-white shadow-lg hover:bg-gray-200 transition text-gray-700 z-10"
-            aria-label="Next Pokémon"
-          >
-            <ArrowIcon direction="right" />
-          </button>
-        )}
         <motion.div
           key={pokemon.id}
-          variants={slideVariants} // 정의한 variants 객체를 연결
-          custom={direction}       // variants 함수에 전달할 custom 데이터
-          initial="enter"          // 초기 상태는 'enter' variant
-          animate="center"         // 애니메이션 완료 상태는 'center' variant
-          exit="exit"              // 퇴장 상태는 'exit' variant
-          transition={{
-            x: { type: "spring", stiffness: 300, damping: 30 },
-            opacity: { duration: 0.2 }
-          }}
-          className="bg-white rounded-xl shadow-lg p-6"
+          variants={slideVariants} custom={direction} initial="enter" animate="center" exit="exit"
+          transition={{ duration: 0.3 }}
+          className="bg-white rounded-2xl shadow-2xl overflow-hidden"
         >
-          <div className="grid md:grid-cols-2 gap-8">
-            <div className={`p-4 rounded-lg flex items-center justify-center bg-${pokemon.types[0].type.name}-light`}>
-              <img src={imgUrl} alt={pokemon.name} className="w-full max-w-sm" />
+          {/* 1. 상단 핵심 정보 섹션 */}
+          <div className={`p-6 ${cardColor} relative`}>
+            <span className="absolute top-4 right-6 text-2xl font-bold text-white opacity-50">#{pokemon.id.toString().padStart(3, '0')}</span>
+            <div className="flex flex-col sm:flex-row items-center gap-6">
+              <img src={imgUrl} alt={pokemon.localizedName || pokemon.name} className="w-40 h-40 sm:w-48 sm:h-48 drop-shadow-lg" />
+              <div className="text-center sm:text-left text-white">
+                <h1 className="text-4xl font-extrabold drop-shadow-md">{capitalizeFirstLetter(pokemon.localizedName || pokemon.name)}</h1>
+                <div className="flex justify-center sm:justify-start gap-2 my-3">
+                  {pokemon.types.map(({ type }) => (
+                    <span key={type.name} className={`px-3 py-1 bg-white/30 text-sm font-bold rounded-full backdrop-blur-sm`}>
+                      {capitalizeFirstLetter(type.name)}
+                    </span>
+                  ))}
+                </div>
+                {pokemon.flavorText && <p className="text-sm leading-relaxed">{pokemon.flavorText.replace(/\f/g, ' ')}</p>}
+              </div>
+            </div>
+          </div>
+
+          {/* 2. 하단 탭 및 상세 정보 섹션 */}
+          <div className="p-6">
+            {/* 탭 버튼 */}
+            <div className="flex border-b mb-4">
+              <TabButton title={t('tabs.about')} isActive={activeTab === 'about'} onClick={() => setActiveTab('about')} />
+              <TabButton title={t('tabs.baseStats')} isActive={activeTab === 'stats'} onClick={() => setActiveTab('stats')} />
+              <TabButton title={t('tabs.damageRelations')} isActive={activeTab === 'relations'} onClick={() => setActiveTab('relations')} />
             </div>
 
+            {/* 탭 콘텐츠 */}
             <div>
-              <span className="text-2xl font-bold text-gray-500">#{pokemon.id.toString().padStart(3, '0')}</span>
-              <h1 className="text-5xl font-extrabold my-2">{capitalizeFirstLetter(pokemon.name)}</h1>
-
-              <div className="flex gap-2 my-4">
-                {pokemon.types.map(({ type }) => (
-                  <span key={type.name} className={`px-4 py-1 text-white text-sm font-bold rounded-full ${typeBadgeColorClasses[type.name]}`}>
-                    {capitalizeFirstLetter(type.name)}
-                  </span>
-                ))}
-              </div>
-
-              <div className="grid grid-cols-2 gap-4 my-6 text-center">
-                <div>
-                  <h3 className="font-bold text-lg">{t('common.height')}</h3>
-                  <p>{pokemon.height / 10} m</p>
-                </div>
-                <div>
-                  <h3 className="font-bold text-lg">{t('common.weight')}</h3>
-                  <p>{pokemon.weight / 10} kg</p>
-                </div>
-              </div>
-
-              <div>
-                <h2 className="text-2xl font-bold mb-2">{t('common.baseStats')}</h2>
-                {pokemon.stats.map((stat) => (
-                  <div key={stat.stat.name} className="flex items-center my-2">
-                    <span className="w-1/3 text-gray-600 font-medium">{capitalizeFirstLetter(stat.stat.name.replace('-', ' '))}</span>
-                    <span className="w-1/12 font-bold">{stat.base_stat}</span>
-                    <div className="w-7/12 bg-gray-200 rounded-full h-4">
-                      <div
-                        className={`bg-${pokemon.types[0].type.name} h-4 rounded-full`}
-                        style={{ width: `${(stat.base_stat / 255) * 100}%` }}
-                      ></div>
+              {activeTab === 'about' && (
+                <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+                  <h3 className="text-lg font-bold mb-2">{t('tabs.about')}</h3>
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <dt className="text-sm text-gray-500">{t('common.height')}</dt>
+                      <dd className="font-semibold text-lg">{pokemon.height / 10} m</dd>
+                    </div>
+                    <div>
+                      <dt className="text-sm text-gray-500">{t('common.weight')}</dt>
+                      <dd className="font-semibold text-lg">{pokemon.weight / 10} kg</dd>
                     </div>
                   </div>
-                ))}
-              </div>
-
-              <div className="mt-6">
-                <h2 className="text-2xl font-bold mb-3">{t('common.damageRelations')}</h2>
-                <div className="flex flex-col gap-y-2">
-                  <RelationsSection title={t('common.weaknesses')} types={weaknesses} />
-                  <RelationsSection title={t('common.resistances')} types={resistances} />
-                  <RelationsSection title={t('common.immunities')} types={immunities} />
-                </div>
-              </div>
-
+                </motion.div>
+              )}
+              {activeTab === 'stats' && (
+                <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+                  <h3 className="text-lg font-bold mb-2">{t('tabs.baseStats')}</h3>
+                  {pokemon.stats.map((stat) => (
+                    <div key={stat.stat.name} className="flex items-center my-2">
+                      <span className="w-1/3 text-gray-600 font-medium">{capitalizeFirstLetter(stat.stat.name.replace('-', ' '))}</span>
+                      <span className="w-1/12 font-bold">{stat.base_stat}</span>
+                      <div className="w-7/12 bg-gray-200 rounded-full h-4">
+                        <div
+                          className={`bg-${pokemon.types[0].type.name} h-4 rounded-full`}
+                          style={{ width: `${(stat.base_stat / 255) * 100}%` }}
+                        ></div>
+                      </div>
+                    </div>
+                  ))}
+                </motion.div>
+              )}
+              {activeTab === 'relations' && (
+                <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+                  <h3 className="text-lg font-bold mb-2">{t('tabs.damageRelations')}</h3>
+                  <div className="flex flex-col gap-y-2">
+                    <RelationsSection title={t('common.weaknesses')} types={weaknesses} />
+                    <RelationsSection title={t('common.resistances')} types={resistances} />
+                    <RelationsSection title={t('common.immunities')} types={immunities} />
+                  </div>
+                </motion.div>
+              )}
             </div>
           </div>
         </motion.div>
-
       </div>
     </div>
   );

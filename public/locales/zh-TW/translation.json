@@ -18,5 +18,10 @@
   "search": {
     "placeholder": "依寶可夢名稱搜尋...",
     "noResultsFound": "找不到 \"{{term}}\" 的搜尋結果。"
+  },
+  "tabs": {
+    "about": "資訊",
+    "baseStats": "種族值",
+    "damageRelations": "屬性相剋"
   }
 }

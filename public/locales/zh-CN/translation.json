@@ -18,5 +18,10 @@
   "search": {
     "placeholder": "按宝可梦名称搜索...",
     "noResultsFound": "没有找到 \"{{term}}\" 的搜索结果。"
+  },
+  "tabs": {
+    "about": "信息",
+    "baseStats": "种族值",
+    "damageRelations": "属性相克"
   }
 }
