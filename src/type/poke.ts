@@ -33,7 +33,7 @@ interface PokemonStatInfo {
   url: string;
 }
 
-interface PokemonStat {
+export interface PokemonStat {
   base_stat: number;
   stat: PokemonStatInfo;
 }

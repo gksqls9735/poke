@@ -23,7 +23,7 @@ const EvolutionCard = ({ stage }: { stage: EvolutionStage }) => (
   </Link>
 );
 
-const EvolutionChain = ({ chain }: { chain: EvolutionStage[] }) => {
+const EvolutionTab = ({ chain }: { chain: EvolutionStage[] }) => {
   const { t } = useTranslation();
 
   if (!chain || chain.length <= 1) {
@@ -37,7 +37,7 @@ const EvolutionChain = ({ chain }: { chain: EvolutionStage[] }) => {
 
   return (
     <div className="mt-8">
-      <h2 className="text-2xl font-bold mb-4 text-center md:text-left">{t('tabs.evolution')}</h2>
+      <h3 className="text-lg font-bold mb-2">{t('tabs.evolution')}</h3>
       <div className="flex items-center justify-center flex-wrap bg-gray-50 p-4 rounded-lg">
         {chain.map((stage, idx) => (
           <div key={stage.id} className="flex items-center">
@@ -50,4 +50,4 @@ const EvolutionChain = ({ chain }: { chain: EvolutionStage[] }) => {
   );
 };
 
-export default EvolutionChain;
+export default EvolutionTab;

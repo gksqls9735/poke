@@ -1,13 +1,16 @@
 import { motion } from 'framer-motion';
-import { typeBadgeColorClasses, typeCardColorClasses } from "@/constants/color";
+import { typeCardColorClasses } from "@/constants/color";
 import type { PokemonDetail, PokemonTypeInfo } from "@/type/poke";
-import { capitalizeFirstLetter } from "@/utils/text";
 import { useContext, useState } from 'react';
 import { DirectionContext } from '@/contexts/direction-context';
 import { useTranslation } from 'react-i18next';
 import { useTypeTranslations } from '@/hooks/use-type-translations';
 import type { EvolutionStage } from '@/hooks/use-evolution-chain';
-import EvolutionChain from './evolution-chain';
+import EvolutionTab from './tab/evolution-tab';
+import AboutTab from './tab/about-tab';
+import StatsTab from './tab/stats-tab';
+import RelationsTab from './tab/relations-tab';
+import InfoSection from './info-section';
 
 const slideVariants = {
   enter: (direction: number) => ({
@@ -37,23 +40,6 @@ const ArrowIcon = ({ direction = 'left' }: { direction?: 'left' | 'right' }) => 
     <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
   </svg>
 );
-
-const RelationsSection = ({ title, types, getTypeName }: { title: string, types: PokemonTypeInfo[], getTypeName: (engName: string) => string }) => {
-  if (types.length === 0) return null;
-
-  return (
-    <div className="flex items-start my-1">
-      <h3 className="w-1/3 text-sm font-bold text-gray-600 pt-0.5">{title}</h3>
-      <div className="w-2/3 flex flex-wrap gap-1">
-        {types.map(({ name }) => (
-          <span key={name} className={`px-2 py-0.5 text-white text-xs font-semibold rounded-md ${typeBadgeColorClasses[name]}`}>
-            {capitalizeFirstLetter(getTypeName(name))}
-          </span>
-        ))}
-      </div>
-    </div>
-  )
-};
 
 const TabButton = ({ title, isActive, onClick }: { title: string, isActive: boolean, onClick: () => void }) => (
   <button
@@ -97,23 +83,7 @@ const PokeDetail = ({ imgUrl, pokemon, weaknesses, resistances, immunities, onPr
           className="bg-white rounded-2xl shadow-2xl overflow-hidden"
         >
           {/* 1. 상단 핵심 정보 섹션 */}
-          <div className={`p-6 ${cardColor} relative`}>
-            <span className="absolute top-4 right-6 text-2xl font-bold text-white opacity-50">#{pokemon.id.toString().padStart(3, '0')}</span>
-            <div className="flex flex-col sm:flex-row items-center gap-6">
-              <img src={imgUrl} alt={pokemon.localizedName || pokemon.name} className="w-40 h-40 sm:w-48 sm:h-48 drop-shadow-lg" />
-              <div className="text-center sm:text-left text-white">
-                <h1 className="text-4xl font-extrabold drop-shadow-md">{capitalizeFirstLetter(pokemon.localizedName || pokemon.name)}</h1>
-                <div className="flex justify-center sm:justify-start gap-2 my-3">
-                  {pokemon.types.map(({ type }) => (
-                    <span key={type.name} className={`px-3 py-1 bg-white/30 text-sm font-bold rounded-full backdrop-blur-sm`}>
-                      {capitalizeFirstLetter(getTranslatedTypeName(type.name))}
-                    </span>
-                  ))}
-                </div>
-                {pokemon.flavorText && <p className="text-sm leading-relaxed">{pokemon.flavorText.replace(/\f/g, ' ')}</p>}
-              </div>
-            </div>
-          </div>
+          <InfoSection cardColor={cardColor} imgUrl={imgUrl} pokemon={pokemon} getTypeName={getTranslatedTypeName}/>
 
           {/* 2. 하단 탭 및 상세 정보 섹션 */}
           <div className="p-6">
@@ -129,49 +99,22 @@ const PokeDetail = ({ imgUrl, pokemon, weaknesses, resistances, immunities, onPr
             <div>
               {activeTab === 'about' && (
                 <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-                  <h3 className="text-lg font-bold mb-2">{t('tabs.about')}</h3>
-                  <div className="grid grid-cols-2 gap-4">
-                    <div>
-                      <dt className="text-sm text-gray-500">{t('common.height')}</dt>
-                      <dd className="font-semibold text-lg">{pokemon.height / 10} m</dd>
-                    </div>
-                    <div>
-                      <dt className="text-sm text-gray-500">{t('common.weight')}</dt>
-                      <dd className="font-semibold text-lg">{pokemon.weight / 10} kg</dd>
-                    </div>
-                  </div>
+                  <AboutTab height={pokemon.height} weight={pokemon.weight} />
                 </motion.div>
               )}
               {activeTab === 'stats' && (
                 <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-                  <h3 className="text-lg font-bold mb-2">{t('tabs.baseStats')}</h3>
-                  {pokemon.stats.map((stat) => (
-                    <div key={stat.stat.name} className="flex items-center my-2">
-                      <span className="w-1/3 text-gray-600 font-medium">{capitalizeFirstLetter(stat.stat.name.replace('-', ' '))}</span>
-                      <span className="w-1/12 font-bold">{stat.base_stat}</span>
-                      <div className="w-7/12 bg-gray-200 rounded-full h-4">
-                        <div
-                          className={`bg-${pokemon.types[0].type.name} h-4 rounded-full`}
-                          style={{ width: `${(stat.base_stat / 255) * 100}%` }}
-                        ></div>
-                      </div>
-                    </div>
-                  ))}
+                  <StatsTab stats={pokemon.stats} primaryTypeName={pokemon.types[0].type.name} />
                 </motion.div>
               )}
               {activeTab === 'relations' && (
                 <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-                  <h3 className="text-lg font-bold mb-2">{t('tabs.damageRelations')}</h3>
-                  <div className="flex flex-col gap-y-2">
-                    <RelationsSection title={t('common.weaknesses')} types={weaknesses} getTypeName={getTranslatedTypeName} />
-                    <RelationsSection title={t('common.resistances')} types={resistances} getTypeName={getTranslatedTypeName} />
-                    <RelationsSection title={t('common.immunities')} types={immunities} getTypeName={getTranslatedTypeName} />
-                  </div>
+                  <RelationsTab weaknesses={weaknesses} resistances={resistances} immunities={immunities} getTypeName={getTranslatedTypeName} />
                 </motion.div>
               )}
               {activeTab === 'evolution' && (
                 <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-                  <EvolutionChain chain={evolutionChain} />
+                  <EvolutionTab chain={evolutionChain} />
                 </motion.div>
               )}
             </div>
