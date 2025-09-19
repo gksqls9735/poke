@@ -4,6 +4,7 @@ import MainPage from "./page/main";
 import DetailPage from "./page/detail";
 import Layout from "./layout/layout";
 import { DirectionProvider } from "./contexts/direction-context";
+import { TabProvider } from "./contexts/tab-context";
 
 const AnimatedRoutes = () => {
   const location = useLocation();
@@ -23,9 +24,11 @@ const AnimatedRoutes = () => {
 const App = () => {
   return (
     <BrowserRouter>
-      <DirectionProvider>
-        <AnimatedRoutes />
-      </DirectionProvider>
+      <TabProvider>
+        <DirectionProvider>
+          <AnimatedRoutes />
+        </DirectionProvider>
+      </TabProvider>
     </BrowserRouter>
   );
 };

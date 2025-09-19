@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import { typeCardColorClasses } from "@/constants/color";
 import type { PokemonDetail, PokemonTypeInfo } from "@/type/poke";
-import { useContext, useState } from 'react';
+import { useContext } from 'react';
 import { DirectionContext } from '@/contexts/direction-context';
 import { useTranslation } from 'react-i18next';
 import { useTypeTranslations } from '@/hooks/use-type-translations';
@@ -11,6 +11,7 @@ import AboutTab from './tab/about-tab';
 import StatsTab from './tab/stats-tab';
 import RelationsTab from './tab/relations-tab';
 import InfoSection from './info-section';
+import type { TabMode } from '@/type/common';
 
 const slideVariants = {
   enter: (direction: number) => ({
@@ -50,7 +51,7 @@ const TabButton = ({ title, isActive, onClick }: { title: string, isActive: bool
   </button>
 );
 
-const PokeDetail = ({ imgUrl, pokemon, weaknesses, resistances, immunities, onPrevClick, onNextClick, hasPrev, hasNext, evolutionChain }: {
+const PokeDetail = ({ imgUrl, pokemon, weaknesses, resistances, immunities, onPrevClick, onNextClick, hasPrev, hasNext, evolutionChain, activeTab, onTabClick }: {
   imgUrl: string,
   pokemon: PokemonDetail,
   weaknesses: PokemonTypeInfo[],
@@ -61,11 +62,12 @@ const PokeDetail = ({ imgUrl, pokemon, weaknesses, resistances, immunities, onPr
   hasPrev: boolean,
   hasNext: boolean,
   evolutionChain: EvolutionStage[],
+  activeTab: string,
+  onTabClick: (tab: TabMode) => void;
 }) => {
   const { direction } = useContext(DirectionContext);
   const { t } = useTranslation();
   const { getTranslatedTypeName } = useTypeTranslations();
-  const [activeTab, setActiveTab] = useState<'about' | 'stats' | 'relations' | 'evolution'>('about');
 
   const primaryType = pokemon.types[0].type.name;
   const cardColor = typeCardColorClasses[primaryType] || "bg-gray-200";
@@ -89,10 +91,10 @@ const PokeDetail = ({ imgUrl, pokemon, weaknesses, resistances, immunities, onPr
           <div className="p-6">
             {/* 탭 버튼 */}
             <div className="flex border-b mb-4">
-              <TabButton title={t('tabs.about')} isActive={activeTab === 'about'} onClick={() => setActiveTab('about')} />
-              <TabButton title={t('tabs.baseStats')} isActive={activeTab === 'stats'} onClick={() => setActiveTab('stats')} />
-              <TabButton title={t('tabs.damageRelations')} isActive={activeTab === 'relations'} onClick={() => setActiveTab('relations')} />
-              <TabButton title={t('tabs.evolution')} isActive={activeTab === 'evolution'} onClick={() => setActiveTab('evolution')} />
+              <TabButton title={t('tabs.about')} isActive={activeTab === 'about'} onClick={() => onTabClick('about')} />
+              <TabButton title={t('tabs.baseStats')} isActive={activeTab === 'stats'} onClick={() => onTabClick('stats')} />
+              <TabButton title={t('tabs.damageRelations')} isActive={activeTab === 'relations'} onClick={() => onTabClick('relations')} />
+              <TabButton title={t('tabs.evolution')} isActive={activeTab === 'evolution'} onClick={() => onTabClick('evolution')} />
             </div>
 
             {/* 탭 콘텐츠 */}

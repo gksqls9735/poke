@@ -1,6 +1,7 @@
 import PokeDetail from "@/components/datail/poke-detail";
 import { PokeDetailSkeleton } from "@/components/skeleton";
 import { DirectionContext } from "@/contexts/direction-context";
+import { useTab } from "@/contexts/tab-context";
 import { useDmgRelations } from "@/hooks/use-dmg-relations";
 import { useEvolutionChain } from "@/hooks/use-evolution-chain";
 import { usePokemonDetail } from "@/hooks/use-pokemon-detail";
@@ -15,6 +16,7 @@ const DetailPage = () => {
   const nav = useNavigate();
   const { setDirection } = useContext(DirectionContext);
   const { t } = useTranslation();
+  const { activeTab, setActiveTab } = useTab();
 
   const currentId = parseInt(id ?? '1', 10);
 
@@ -57,6 +59,8 @@ const DetailPage = () => {
       hasPrev={currentId > 1}
       hasNext={currentId < MAX_POKEMON_ID}
       evolutionChain={evolutionChain}
+      activeTab={activeTab}
+      onTabClick={setActiveTab}
     />
   );
 };

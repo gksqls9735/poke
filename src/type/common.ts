@@ -12,3 +12,5 @@ export interface CommonTranslations {
 }
 
 export type ViewMode = 'grid' | 'list';
+
+export type TabMode = 'about' | 'stats' | 'relations' | 'evolution';
