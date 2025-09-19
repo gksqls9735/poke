@@ -20,8 +20,6 @@ export const usePokemonData = (debouncedSearchTerm: string) => {
   const { i18n } = useTranslation();
   const { getLocalizedName, isLoading: areNamesLoading } = usePokemonNames();
 
-  areNamesLoading
-
   const fetchAllPokemons = useCallback(async () => {
     if (allPokemonsCache.current.length > 0) return;
 
@@ -39,6 +37,8 @@ export const usePokemonData = (debouncedSearchTerm: string) => {
 
     // 이전 요청 취소
     if (loadingAbortController.current) loadingAbortController.current.abort();
+
+    // 새로운 AbortController 생성
     loadingAbortController.current = new AbortController();
     const { signal } = loadingAbortController.current;
 
@@ -61,7 +61,7 @@ export const usePokemonData = (debouncedSearchTerm: string) => {
       }
     } finally {
       setLoading(false);
-      loadingAbortController.current = null;
+      loadingAbortController.current = null;  // loadMorePokemons가 완료되면 AbortController를 null로 재설정
     }
   }, [loading, nextUrl, isSearching]);
 
@@ -84,6 +84,10 @@ export const usePokemonData = (debouncedSearchTerm: string) => {
       loadingAbortController.current = null;  // 취소 후 null로 설정
     }
 
+    // 이 useEffect의 요청을 위한 새로운 AbortController 생성
+    const controller = new AbortController();
+    loadingAbortController.current = controller;  // 현재 요청의 AbortController로 등록
+
     const handleDataFetch = async () => {
       setLoading(true);
       setPokemons([]);
@@ -105,35 +109,31 @@ export const usePokemonData = (debouncedSearchTerm: string) => {
           return engName.includes(searchTerm) || localized.includes(searchTerm);
         });
         setPokemons(filtered);
+        setLoading(false);
       } else {
         // 검색어가 없는 경우: 무한 스크롤 초기화 및 첫 페이지 로드
         setIsSearching(false);
-        setNextUrl(INITIAL_URL);
+
+        // 검색어가 없을 시 INITIAL_URL에서 직접 데이터를 가져옴
+        try {
+          const response = await axios.get<PokemonData>(INITIAL_URL, {signal: controller.signal});
+          setPokemons(response.data.results);
+          setNextUrl(response.data.next);
+        } catch (e) {
+          if (!axios.isCancel(e)) console.error("Failed to fetch initial data:",e);
+        } finally {
+          setLoading(false);
+        }
       }
-      setLoading(false);
     };
 
     handleDataFetch();
 
     return () => {
-      if (loadingAbortController.current) loadingAbortController.current.abort();
+      controller.abort(); // 현재 useEffect에서 시작된 요청 취소
+      loadingAbortController.current = null;  // AbortController를 null로 재설정
     }
   }, [debouncedSearchTerm, fetchAllPokemons, getLocalizedName, i18n.language, areNamesLoading]);
-
-  // nextUrl이 변경되거나 컴포넌트 초기 로드 시 첫 페이지 데이터를 로드하기 위한 useEffect
-  useEffect(() => {
-    // 검색 중이 아니며, nextUrl이 있고, 포켓몬 목록이 비어있을 때 (초기 로딩) 또는 nextUrl이 변경되었을 때
-    // 그리고 아직 검색 상태가 아닐 때만 loadMorePokemons를 호출
-    if (!isSearching && nextUrl && pokemons.length === 0 && !debouncedSearchTerm && !loading) {
-      loadMorePokemons();
-    }
-    // nextUrl이 INITIAL_URL로 설정된 후 첫 페이지를 로드하기 위함
-    // debouncedSearchTerm이 없지만, nextUrl이 INITIAL_URL로 재설정되었을 때도 loadMorePokemons를 호출합니다.
-    if (!isSearching && nextUrl === INITIAL_URL && !debouncedSearchTerm && pokemons.length === 0 && !loading) {
-      loadMorePokemons();
-    }
-
-  }, [nextUrl, isSearching, debouncedSearchTerm, loadMorePokemons, pokemons.length, loading]);
 
   const triggerRef = useCallback((node: HTMLDivElement | null) => {
     if (loading || isSearching) return; // 검색 중일 때도 무한 스크롤 트리거 비활성화
