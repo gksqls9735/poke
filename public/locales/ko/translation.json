@@ -18,7 +18,8 @@
   },
   "search": {
     "placeholder": "포켓몬 이름으로 검색...",
-    "noResultsFound": "\"{{term}}\"에 대한 검색 결과가 없습니다."
+    "noResultsFound": "\"{{term}}\"에 대한 검색 결과가 없습니다.",
+    "noResultsFoundTitle": "검색 결과 없음"
   },
   "tabs": {
     "about": "정보",

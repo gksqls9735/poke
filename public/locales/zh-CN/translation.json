@@ -18,7 +18,8 @@
   },
   "search": {
     "placeholder": "按宝可梦名称搜索...",
-    "noResultsFound": "没有找到 \"{{term}}\" 的搜索结果。"
+    "noResultsFound": "没有找到 \"{{term}}\" 的搜索结果。",
+    "noResultsFoundTitle": "未找到结果"
   },
   "tabs": {
     "about": "信息",

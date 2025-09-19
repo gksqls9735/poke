@@ -18,7 +18,8 @@
   },
   "search": {
     "placeholder": "依寶可夢名稱搜尋...",
-    "noResultsFound": "找不到 \"{{term}}\" 的搜尋結果。"
+    "noResultsFound": "找不到 \"{{term}}\" 的搜尋結果。",
+    "noResultsFoundTitle": "未找到結果"
   },
   "tabs": {
     "about": "資訊",

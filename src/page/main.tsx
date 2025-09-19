@@ -1,3 +1,4 @@
+import EmptyState from "@/components/empty-state";
 import PokeCard from "@/components/poke-card";
 import PokeRow from "@/components/poke-row";
 import SearchInput from "@/components/search-input";
@@ -22,6 +23,41 @@ const MainPage = () => {
     setViewMode(mode);
   };
 
+  const renderContent = () => {
+    const isInitialLoad = loading && pokemons.length === 0;
+    const noResults = !loading && pokemons.length === 0;
+
+    // 초기 로딩 상태
+    if (isInitialLoad) return <EmptyState title={t('list.initialLoading')} msg={t('list.initialLoadingMessage')} />;
+
+    // 검색 결과가 없는 상태
+    if (noResults) return <EmptyState title={t('search.noResultsFoundTitle')} msg={t('search.noResultsFound', { term: searchTerm })} />;
+
+    if (viewMode === 'grid') {
+      return (
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
+          {pokemons.map((pokemon) => (
+            <PokeCard key={pokemon.name} name={pokemon.name} url={pokemon.url} />
+          ))}
+        </div>
+      );
+    }
+
+    return (
+      <div className="bg-white rounded-lg shadow-md overflow-hidden">
+        <div className="grid grid-cols-[80px_80px_1fr_1fr] items-center gap-4 p-4 bg-gray-50 border-b-2 border-gray-200">
+          <h3 className="font-bold text-gray-600 text-sm text-center">ID</h3>
+          <h3 className="font-bold text-gray-600 text-sm text-center">Sprite</h3>
+          <h3 className="font-bold text-gray-600 text-sm">Name</h3>
+          <h3 className="font-bold text-gray-600 text-sm">Type</h3>
+        </div>
+        {pokemons.map((pokemon) => (
+          <PokeRow key={pokemon.name} name={pokemon.name} url={pokemon.url} />
+        ))}
+      </div>
+    )
+  };
+
   return (
     <div className="bg-gray-100 min-h-screen">
       <div className="container mx-auto px-4 py-8">
@@ -41,48 +77,15 @@ const MainPage = () => {
         </div>
 
         <main className="mt-8">
-          {loading && pokemons.length === 0 && (
-            <p className="text-center font-semibold text-gray-600">
-              {searchTerm ? `"${searchTerm}" ${t('common.searching')}` : t('list.initialLoading')}
-            </p>
-          )}
-          {!loading && pokemons.length === 0 && (
-            <p className="text-center font-semibold text-gray-600">
-              {searchTerm ? t('search.noResultsFound', { term: searchTerm }) : t('list.initialLoading')}
-            </p>
-          )}
 
-          {viewMode === 'grid' ? (
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
-              {pokemons.map((pokemon) => (
-                <PokeCard key={pokemon.name} name={pokemon.name} url={pokemon.url} />
-              ))}
-            </div>
-          ) : (
-            <div className="bg-white rounded-lg shadow-md overflow-hidden">
-              <div className="grid grid-cols-[80px_80px_1fr_1fr] items-center gap-4 p-4 bg-gray-50 border-b-2 border-gray-200">
-                <h3 className="font-bold text-gray-600 text-sm text-center">ID</h3>
-                <h3 className="font-bold text-gray-600 text-sm text-center">Sprite</h3>
-                <h3 className="font-bold text-gray-600 text-sm">Name</h3>
-                <h3 className="font-bold text-gray-600 text-sm">Type</h3>
-              </div>
-              {pokemons.map((pokemon) => (
-                <PokeRow key={pokemon.name} name={pokemon.name} url={pokemon.url} />
-              ))}
-            </div>
-          )}
+          {renderContent()}
 
           <div ref={hasNextPage ? triggerRef : null} className="h-10" />
 
-          {loading && hasNextPage && (
-            <div className="flex justify-center mt-4">
-              <p className="text-lg font-semibold">{t('list.loadingMore')}</p>
-            </div>
-          )}
         </main>
       </div>
     </div>
   );
-}
+};
 
 export default MainPage;

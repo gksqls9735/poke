@@ -18,7 +18,8 @@
   },
   "search": {
     "placeholder": "Cerca per nome Pokémon...",
-    "noResultsFound": "Nessun risultato trovato per \"{{term}}\"."
+    "noResultsFound": "Nessun risultato trovato per \"{{term}}\".",
+    "noResultsFoundTitle": "Nessun risultato trovato"
   },
   "tabs": {
     "about": "Informazioni",

@@ -18,7 +18,8 @@
   },
   "search": {
     "placeholder": "ポケモンめいでけんさく...",
-    "noResultsFound": "\"{{term}}\" のけんさくけっかはみつかりませんでした。"
+    "noResultsFound": "\"{{term}}\" のけんさくけっかはみつかりませんでした。",
+    "noResultsFoundTitle": "けんさくけっかがありません"
   },
   "tabs": {
     "about": "じょうほう",
