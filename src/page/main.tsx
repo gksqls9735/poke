@@ -59,31 +59,31 @@ const MainPage = () => {
   };
 
   return (
-    <div className="bg-gray-100 min-h-screen">
-      <div className="container mx-auto px-4 py-8">
+    <div className="container mx-auto px-4 py-8">
 
-        <header className="text-center mb-8">
-          <h1 className="text-4xl sm:text-5xl font-extrabold text-gray-800 mb-2">Pokédex</h1>
-          <p className="text-gray-600">{t('list.subtitle')}</p>
-        </header>
+      <header className="text-center mb-8">
+        <h1 className="text-4xl sm:text-5xl font-extrabold text-gray-800 mb-2">
+          Explore the Pokédex
+        </h1>
+        <p className="text-gray-600 max-w-2xl mx-auto">{t('list.subtitle')}</p>
+      </header>
 
-        <div className="grid grid-cols-[1fr_minmax(0,1fr)_1fr] items-center gap-4 mb-8">
-          <div></div>
-          <SearchInput value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
-          <div className="flex justify-end">
-            <ViewToggleButton viewMode={viewMode} setViewMode={handleSetViewMode} />
-          </div>
-
+      <div className="grid grid-cols-[1fr_minmax(0,1fr)_1fr] items-center gap-4 mb-8">
+        <div></div>
+        <SearchInput value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
+        <div className="flex justify-end">
+          <ViewToggleButton viewMode={viewMode} setViewMode={handleSetViewMode} />
         </div>
 
-        <main className="mt-8">
-
-          {renderContent()}
-
-          <div ref={hasNextPage ? triggerRef : null} className="h-10" />
-
-        </main>
       </div>
+
+      <main className="mt-8">
+
+        {renderContent()}
+
+        <div ref={hasNextPage ? triggerRef : null} className="h-10" />
+
+      </main>
     </div>
   );
 };
