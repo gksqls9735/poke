@@ -82,7 +82,7 @@ const PokeDetail = ({ imgUrl, pokemon, weaknesses, resistances, immunities, onPr
   const cardColor = typeCardColorClasses[primaryType] || "bg-gray-200";
 
   return (
-    <div className="min-h-[calc(100vh-72px)] bg-gray-100 p-4 sm:p-8 flex items-center justify-center">
+    <div className="min-h-[calc(100vh-72px)] bg-white p-4 sm:p-8 flex items-center justify-center">
       <div className="relative max-w-2xl mx-auto w-full">
         {hasPrev && <button onClick={onPrevClick} className="absolute top-1/2 -translate-y-1/2 -left-4 sm:-left-16 z-10"><ArrowIcon direction="left" /></button>}
         {hasNext && <button onClick={onNextClick} className="absolute top-1/2 -translate-y-1/2 -right-4 sm:-right-16 z-10"><ArrowIcon direction="right" /></button>}

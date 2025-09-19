@@ -1,7 +1,6 @@
 import { useTranslation } from "react-i18next";
 import type { ViewMode } from "@/type/common";
 
-// 아이콘 SVG 정의
 const SearchIcon = () => (
   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 text-gray-400">
     <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
@@ -35,7 +34,6 @@ const ControlBar = ({ searchTerm, onSearchTermChange, viewMode, onViewModeChange
   const inactiveButtonStyle = "text-gray-400 hover:bg-gray-200";
 
   return (
-    // 변경점: 검색창과 뷰 토글을 하나의 컨테이너로 통합
     <div className="flex items-center w-full max-w-2xl mx-auto bg-white rounded-xl shadow-lg p-2 border border-gray-200">
       <div className="relative flex-grow">
         <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -46,12 +44,10 @@ const ControlBar = ({ searchTerm, onSearchTermChange, viewMode, onViewModeChange
           value={searchTerm}
           onChange={onSearchTermChange}
           placeholder={t('search.placeholder')}
-          // 변경점: input 자체의 스타일을 더 미니멀하게
           className="w-full p-3 pl-10 bg-transparent focus:outline-none text-gray-800 placeholder:text-gray-400"
         />
       </div>
 
-      {/* 뷰 토글 버튼 */}
       <div className="flex items-center bg-gray-100 border-2 border-gray-200 rounded-lg p-1 ml-2">
         <button onClick={() => onViewModeChange('grid')} className={`${baseButtonStyle} ${viewMode === 'grid' ? activeButtonStyle : inactiveButtonStyle}`}>
           <GridIcon />

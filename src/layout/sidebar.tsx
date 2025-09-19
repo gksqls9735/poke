@@ -5,9 +5,9 @@ import { useNavigate } from 'react-router-dom';
 const Sidebar = () => {
   const nav = useNavigate();
   return (
-    <aside className="w-64 bg-white/70 backdrop-blur-lg border-r border-white/30 shadow-lg flex-shrink-0">
+    <aside className="w-64 bg-gray-50 border-r border-gray-200 flex-shrink-0">
       <div 
-        className="p-4 flex items-center cursor-pointer border-b border-white/30 h-[73px]"
+        className="p-4 flex items-center cursor-pointer border-b border-gray-200 h-[73px]"
         onClick={() => nav("/")}
       >
         <img src={pokeLogo} alt="Poke Logo" className="h-9 w-9 mr-3" />

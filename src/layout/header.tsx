@@ -15,13 +15,11 @@ const Header = () => {
   };
 
   return (
-    // 변경점: 글래스 효과 적용 및 높이 고정
-    <header className="bg-white/70 backdrop-blur-lg p-3 border-b border-white/30 sticky top-0 z-20 h-[73px] flex items-center">
+    <header className="bg-gray-50 p-3 border-b border-gray-200 sticky top-0 z-20 h-[73px] flex items-center">
       <div className="w-full px-4 sm:px-6 lg:px-8 flex items-center justify-end">
         <div className="relative" ref={dropdownRef}>
           <button
             onClick={handleDropDown}
-            // 변경점: 버튼 디자인을 더 미니멀하고 세련되게 수정
             className="flex items-center gap-2 text-gray-700 font-medium hover:bg-gray-500/10 p-2 rounded-lg transition-colors duration-200"
           >
             {currentLang.flag && (
