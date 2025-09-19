@@ -6,6 +6,8 @@ import { useContext, useState } from 'react';
 import { DirectionContext } from '@/contexts/direction-context';
 import { useTranslation } from 'react-i18next';
 import { useTypeTranslations } from '@/hooks/use-type-translations';
+import type { EvolutionStage } from '@/hooks/use-evolution-chain';
+import EvolutionChain from './evolution-chain';
 
 const slideVariants = {
   enter: (direction: number) => ({
@@ -62,7 +64,7 @@ const TabButton = ({ title, isActive, onClick }: { title: string, isActive: bool
   </button>
 );
 
-const PokeDetail = ({ imgUrl, pokemon, weaknesses, resistances, immunities, onPrevClick, onNextClick, hasPrev, hasNext }: {
+const PokeDetail = ({ imgUrl, pokemon, weaknesses, resistances, immunities, onPrevClick, onNextClick, hasPrev, hasNext, evolutionChain }: {
   imgUrl: string,
   pokemon: PokemonDetail,
   weaknesses: PokemonTypeInfo[],
@@ -72,11 +74,12 @@ const PokeDetail = ({ imgUrl, pokemon, weaknesses, resistances, immunities, onPr
   onNextClick: () => void,
   hasPrev: boolean,
   hasNext: boolean,
+  evolutionChain: EvolutionStage[],
 }) => {
   const { direction } = useContext(DirectionContext);
   const { t } = useTranslation();
   const { getTranslatedTypeName } = useTypeTranslations();
-  const [activeTab, setActiveTab] = useState<'about' | 'stats' | 'relations'>('about');
+  const [activeTab, setActiveTab] = useState<'about' | 'stats' | 'relations' | 'evolution'>('about');
 
   const primaryType = pokemon.types[0].type.name;
   const cardColor = typeCardColorClasses[primaryType] || "bg-gray-200";
@@ -119,6 +122,7 @@ const PokeDetail = ({ imgUrl, pokemon, weaknesses, resistances, immunities, onPr
               <TabButton title={t('tabs.about')} isActive={activeTab === 'about'} onClick={() => setActiveTab('about')} />
               <TabButton title={t('tabs.baseStats')} isActive={activeTab === 'stats'} onClick={() => setActiveTab('stats')} />
               <TabButton title={t('tabs.damageRelations')} isActive={activeTab === 'relations'} onClick={() => setActiveTab('relations')} />
+              <TabButton title={t('tabs.evolution')} isActive={activeTab === 'evolution'} onClick={() => setActiveTab('evolution')} />
             </div>
 
             {/* 탭 콘텐츠 */}
@@ -163,6 +167,11 @@ const PokeDetail = ({ imgUrl, pokemon, weaknesses, resistances, immunities, onPr
                     <RelationsSection title={t('common.resistances')} types={resistances} getTypeName={getTranslatedTypeName} />
                     <RelationsSection title={t('common.immunities')} types={immunities} getTypeName={getTranslatedTypeName} />
                   </div>
+                </motion.div>
+              )}
+              {activeTab === 'evolution' && (
+                <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+                  <EvolutionChain chain={evolutionChain} />
                 </motion.div>
               )}
             </div>

@@ -24,12 +24,17 @@
   "tabs": {
     "about": "信息",
     "baseStats": "种族值",
-    "damageRelations": "属性相克"
+    "damageRelations": "属性相克",
+    "evolution": "进化"
   },
   "header": {
     "id": "编号",
     "sprite": "形象",
     "name": "名字",
     "type": "属性"
+  },
+  "evolution": {
+    "noEvolution": "该宝可梦不会进化。",
+    "loading": "正在加载进化信息..."
   }
 }

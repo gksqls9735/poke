@@ -24,12 +24,17 @@
   "tabs": {
     "about": "About",
     "baseStats": "Base Stats",
-    "damageRelations": "Damage Relations"
+    "damageRelations": "Damage Relations",
+    "evolution": "Evolution"
   },
   "header": {
     "id": "ID",
     "sprite": "Sprite",
     "name": "Name",
     "type": "Type"
+  },
+  "evolution": {
+    "noEvolution": "This Pokémon does not evolve.",
+    "loading": "Loading evolution data..."
   }
 }

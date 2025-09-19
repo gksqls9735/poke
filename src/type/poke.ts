@@ -85,6 +85,10 @@ interface NameEntry {
 
 // pokemon-species API의 응답 타입
 export interface PokemonSpecies {
+  id: number;
   names: NameEntry[];
   flavor_text_entries: FlavorTextEntry[];
+  evolution_chain: {
+    url: string;
+  };
 }

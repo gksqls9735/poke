@@ -24,12 +24,17 @@
   "tabs": {
     "about": "じょうほう",
     "baseStats": "しゅぞくち",
-    "damageRelations": "あいしょう"
+    "damageRelations": "あいしょう",
+    "evolution": "しんか"
   },
   "header": {
     "id": "ばんごう",
     "sprite": "すがた",
     "name": "なまえ",
     "type": "タイプ"
+  },
+  "evolution": {
+    "noEvolution": "このポケモンはしんかしません。",
+    "loading": "しんかじょうほうをよみこみちゅう..."
   }
 }

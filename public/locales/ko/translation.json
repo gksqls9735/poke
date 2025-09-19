@@ -24,12 +24,17 @@
   "tabs": {
     "about": "정보",
     "baseStats": "기본 스탯",
-    "damageRelations": "상성 정보"
+    "damageRelations": "상성 정보",
+    "evolution": "진화"
   },
   "header": {
     "id": "번호",
     "sprite": "이미지",
     "name": "이름",
     "type": "타입"
+  },
+  "evolution": {
+    "noEvolution": "이 포켓몬은 진화하지 않습니다.",
+    "loading": "진화 정보를 불러오는 중..."
   }
 }

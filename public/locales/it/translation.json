@@ -24,12 +24,17 @@
   "tabs": {
     "about": "Informazioni",
     "baseStats": "Statistiche",
-    "damageRelations": "Efficacia Tipi"
+    "damageRelations": "Efficacia Tipi",
+    "evolution": "Evoluzione"
   },
   "header": {
     "id": "N°",
     "sprite": "Immagine",
     "name": "Nome",
     "type": "Tipo"
+  },
+  "evolution": {
+    "noEvolution": "Questo Pokémon non si evolve.",
+    "loading": "Caricamento dati evolutivi..."
   }
 }

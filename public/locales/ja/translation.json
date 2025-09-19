@@ -24,12 +24,17 @@
   "tabs": {
     "about": "情報",
     "baseStats": "種族値",
-    "damageRelations": "相性"
+    "damageRelations": "相性",
+    "evolution": "進化"
   },
   "header": {
     "id": "番号",
     "sprite": "姿",
     "name": "名前",
     "type": "タイプ"
+  },
+  "evolution": {
+    "noEvolution": "このポケモンは進化しません。",
+    "loading": "進化情報を読み込み中..."
   }
 }

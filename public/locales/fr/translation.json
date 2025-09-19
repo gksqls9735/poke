@@ -24,12 +24,17 @@
   "tabs": {
     "about": "À propos",
     "baseStats": "Statistiques de base",
-    "damageRelations": "Faiblesses et Résistances"
+    "damageRelations": "Faiblesses et Résistances",
+    "evolution": "Évolution"
   },
   "header": {
     "id": "N°",
     "sprite": "Image",
     "name": "Nom",
     "type": "Type"
+  },
+  "evolution": {
+    "noEvolution": "Ce Pokémon n'évolue pas.",
+    "loading": "Chargement des données d'évolution..."
   }
 }
