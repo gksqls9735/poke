@@ -29,7 +29,7 @@ const PokeCard = ({ name, url }: Pokemon) => {
   return (
     <Link to={`/pokemon/${pokemonId}`}>
       <div
-        className={`relative rounded-lg shadow-md p-4 flex flex-col items-center justify-between transition-transform transform hover:-translate-y-1 hover:shadow-xl border-4 ${cardColor}`}
+        className={`relative rounded-lg shadow-md p-4 flex flex-col items-center justify-between transition-transform transform hover:-translate-y-1 hover:shadow-xl border-4 ${cardColor} min-w-[165px] min-h-[200px]`}
       >
         <span className="absolute top-2 right-4 text-sm font-bold text-gray-500/80">
           #{pokemon.id.toString().padStart(3, '0')}
