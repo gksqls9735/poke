@@ -25,5 +25,11 @@
     "about": "じょうほう",
     "baseStats": "しゅぞくち",
     "damageRelations": "あいしょう"
+  },
+  "header": {
+    "id": "ばんごう",
+    "sprite": "すがた",
+    "name": "なまえ",
+    "type": "タイプ"
   }
 }

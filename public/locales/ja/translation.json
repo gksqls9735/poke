@@ -25,5 +25,11 @@
     "about": "情報",
     "baseStats": "種族値",
     "damageRelations": "相性"
+  },
+  "header": {
+    "id": "番号",
+    "sprite": "姿",
+    "name": "名前",
+    "type": "タイプ"
   }
 }

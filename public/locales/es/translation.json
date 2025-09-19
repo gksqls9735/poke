@@ -25,5 +25,11 @@
     "about": "Información",
     "baseStats": "Estadísticas Base",
     "damageRelations": "Debilidades y Resistencias"
+  },
+  "header": {
+    "id": "N.º",
+    "sprite": "Imagen",
+    "name": "Nombre",
+    "type": "Tipo"
   }
 }

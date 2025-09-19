@@ -25,5 +25,11 @@
     "about": "정보",
     "baseStats": "기본 스탯",
     "damageRelations": "상성 정보"
+  },
+  "header": {
+    "id": "번호",
+    "sprite": "이미지",
+    "name": "이름",
+    "type": "타입"
   }
 }

@@ -45,10 +45,10 @@ const MainPage = () => {
     return (
       <div className="bg-white rounded-lg shadow-md overflow-hidden">
         <div className="grid grid-cols-[80px_80px_1fr_1fr] items-center gap-4 p-4 bg-gray-50 border-b-2 border-gray-200">
-          <h3 className="font-bold text-gray-600 text-sm text-center">ID</h3>
-          <h3 className="font-bold text-gray-600 text-sm text-center">Sprite</h3>
-          <h3 className="font-bold text-gray-600 text-sm">Name</h3>
-          <h3 className="font-bold text-gray-600 text-sm">Type</h3>
+          <h3 className="font-bold text-gray-600 text-sm text-center">{t('header.id')}</h3>
+          <h3 className="font-bold text-gray-600 text-sm text-center">{t('header.sprite')}</h3>
+          <h3 className="font-bold text-gray-600 text-sm">{t('header.name')}</h3>
+          <h3 className="font-bold text-gray-600 text-sm">{t('header.type')}</h3>
         </div>
         {pokemons.map((pokemon) => (
           <PokeRow key={pokemon.name} name={pokemon.name} url={pokemon.url} />

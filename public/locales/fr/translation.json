@@ -25,5 +25,11 @@
     "about": "À propos",
     "baseStats": "Statistiques de base",
     "damageRelations": "Faiblesses et Résistances"
+  },
+  "header": {
+    "id": "N°",
+    "sprite": "Image",
+    "name": "Nom",
+    "type": "Type"
   }
 }

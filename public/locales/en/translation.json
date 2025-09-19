@@ -25,5 +25,11 @@
     "about": "About",
     "baseStats": "Base Stats",
     "damageRelations": "Damage Relations"
+  },
+  "header": {
+    "id": "ID",
+    "sprite": "Sprite",
+    "name": "Name",
+    "type": "Type"
   }
 }

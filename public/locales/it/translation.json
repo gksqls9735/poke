@@ -25,5 +25,11 @@
     "about": "Informazioni",
     "baseStats": "Statistiche",
     "damageRelations": "Efficacia Tipi"
+  },
+  "header": {
+    "id": "N°",
+    "sprite": "Immagine",
+    "name": "Nome",
+    "type": "Tipo"
   }
 }

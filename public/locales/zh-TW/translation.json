@@ -25,5 +25,11 @@
     "about": "資訊",
     "baseStats": "種族值",
     "damageRelations": "屬性相剋"
+  },
+  "header": {
+    "id": "編號",
+    "sprite": "形象",
+    "name": "名字",
+    "type": "屬性"
   }
 }

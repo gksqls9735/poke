@@ -25,5 +25,11 @@
     "about": "Über",
     "baseStats": "Basiswerte",
     "damageRelations": "Typen-Effektivität"
+  },
+  "header": {
+    "id": "Nr.",
+    "sprite": "Bild",
+    "name": "Name",
+    "type": "Typ"
   }
 }
