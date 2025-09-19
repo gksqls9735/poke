@@ -4,21 +4,18 @@ import { capitalizeFirstLetter } from "@/utils/text";
 import { usePokemonDetail } from "@/hooks/use-pokemon-detail";
 import { Link } from "react-router-dom";
 import { useTypeTranslations } from "@/hooks/use-type-translations";
+import { PokeCardSkeleton } from "./skeleton";
 
 const PokeCard = ({ name, url }: Pokemon) => {
   const { pokemon, loading: isDetailLoading } = usePokemonDetail(url);
-  const { getTranslatedTypeName, isLoading: areTypesLoading  } = useTypeTranslations();
+  const { getTranslatedTypeName, isLoading: areTypesLoading } = useTypeTranslations();
   const pokemonId = url.split('/').filter(Boolean).pop();
 
   const isCardLoading = isDetailLoading || areTypesLoading;
 
   if (isCardLoading) {
     return (
-      <div className="bg-white rounded-lg shadow-md p-4 animate-pulse">
-        <div className="h-24 bg-gray-300 rounded w-full"></div>
-        <div className="h-4 bg-gray-300 rounded w-1/4 mt-4"></div>
-        <div className="h-6 bg-gray-300 rounded w-3/4 mt-2"></div>
-      </div>
+      <PokeCardSkeleton />
     );
   }
 

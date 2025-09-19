@@ -4,18 +4,7 @@ import { capitalizeFirstLetter } from "@/utils/text";
 import { typeBadgeColorClasses } from "@/constants/color";
 import { usePokemonDetail } from "@/hooks/use-pokemon-detail";
 import { useTypeTranslations } from "@/hooks/use-type-translations";
-
-const PokeRowSkeleton = () => (
-  <div className="grid grid-cols-[80px_80px_1fr_1fr] items-center gap-4 p-4 animate-pulse">
-    <div className="h-6 bg-gray-200 rounded"></div>
-    <div className="w-16 h-16 bg-gray-200 rounded-full mx-auto"></div>
-    <div className="h-6 bg-gray-200 rounded"></div>
-    <div className="flex gap-2">
-      <div className="w-16 h-6 bg-gray-200 rounded-full"></div>
-      <div className="w-16 h-6 bg-gray-200 rounded-full"></div>
-    </div>
-  </div>
-);
+import { PokeRowSkeleton } from "./skeleton";
 
 const PokeRow = ({ url }: Pokemon) => {
   const { pokemon, loading } = usePokemonDetail(url);
