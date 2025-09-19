@@ -1,8 +1,7 @@
+import ControlBar from "@/components/control-bar";
 import EmptyState from "@/components/empty-state";
 import PokeCard from "@/components/poke-card";
 import PokeRow from "@/components/poke-row";
-import SearchInput from "@/components/search-input";
-import ViewToggleButton from "@/components/view-toggle-button";
 import { useDebounce } from "@/hooks/use-debounce";
 import { usePokemonData } from "@/hooks/use-pokemon-data";
 import type { ViewMode } from "@/type/common";
@@ -62,27 +61,24 @@ const MainPage = () => {
     <div className="container mx-auto px-4 py-8">
 
       <header className="text-center mb-8">
-        <h1 className="text-4xl sm:text-5xl font-extrabold text-gray-800 mb-2">
+        <h1 className="text-5xl sm:text-6xl font-black bg-clip-text text-transparent bg-gradient-to-r from-gray-700 to-gray-900 mb-3">
           Explore the Pokédex
         </h1>
         <p className="text-gray-600 max-w-2xl mx-auto">{t('list.subtitle')}</p>
       </header>
 
-      <div className="grid grid-cols-[1fr_minmax(0,1fr)_1fr] items-center gap-4 mb-8">
-        <div></div>
-        <SearchInput value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
-        <div className="flex justify-end">
-          <ViewToggleButton viewMode={viewMode} setViewMode={handleSetViewMode} />
-        </div>
-
+      <div className="mb-8">
+        <ControlBar
+          searchTerm={searchTerm}
+          onSearchTermChange={(e) => setSearchTerm(e.target.value)}
+          viewMode={viewMode}
+          onViewModeChange={handleSetViewMode}
+        />
       </div>
 
-      <main className="mt-8">
-
+      <main>
         {renderContent()}
-
         <div ref={hasNextPage ? triggerRef : null} className="h-10" />
-
       </main>
     </div>
   );

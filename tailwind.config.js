@@ -7,6 +7,8 @@ export default {
   theme: {
     extend: {
       colors: {
+        'pokedex-red': '#f25f5c',
+
         // 기본 테마 색상
         primary: "#ffcb05",
         second: "#3d7dca",
