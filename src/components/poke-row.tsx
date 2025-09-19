@@ -17,7 +17,7 @@ const PokeRow = ({ url }: Pokemon) => {
   return (
     <Link
       to={`/pokemon/${pokemon.id}`}
-      className="grid grid-cols-[80px_80px_1fr_1fr] items-center gap-4 p-4 border-b border-gray-200 hover:bg-gray-50 transition-colors duration-200"
+      className="grid grid-cols-[80px_80px_minmax(150px,1fr)_minmax(140px,1fr)] items-center gap-4 p-4 border-b border-gray-200 hover:bg-gray-50 transition-colors duration-200"
     >
       <span className="font-bold text-gray-500 text-center">#{pokemonId}</span>
       
